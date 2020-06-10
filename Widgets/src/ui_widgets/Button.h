@@ -12,9 +12,13 @@ private:
 	function_ptr on_click;
 public:
 
-	Button(Position & pos, Dimension & dim, function_ptr on_click);
+	Button(Position&& pos, Dimension&& dim, function_ptr on_click);
 
-	Button(Position & pos, Dimension & dim);
+	Button(Position&& pos, Dimension&& dim);
+
+	Button(Position& pos, Dimension& dim, function_ptr on_click);
+
+	Button(Position& pos, Dimension& dim);
 
 	void update() override;
 

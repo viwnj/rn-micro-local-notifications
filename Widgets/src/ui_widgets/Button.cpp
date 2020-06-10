@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(Position & pos, Dimension & dim, function_ptr f) {
+Button::Button(Position&& pos, Dimension&& dim, function_ptr f) {
 	rect = {
 		pos.x,
 		pos.y,
@@ -10,7 +10,27 @@ Button::Button(Position & pos, Dimension & dim, function_ptr f) {
 	this->on_click = on_click;
 }
 
-Button::Button(Position & pos, Dimension & dim) {
+Button::Button(Position&& pos, Dimension&& dim) {
+	rect = {
+		pos.x,
+		pos.y,
+		dim.width,
+		dim.height
+	};
+}
+
+
+Button::Button(Position& pos, Dimension& dim, function_ptr f) {
+	rect = {
+		pos.x,
+		pos.y,
+		dim.width,
+		dim.height
+	};
+	this->on_click = on_click;
+}
+
+Button::Button(Position& pos, Dimension& dim) {
 	rect = {
 		pos.x,
 		pos.y,
