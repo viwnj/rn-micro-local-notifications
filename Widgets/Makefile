@@ -32,7 +32,7 @@ PROGRAM                = zzz_pear_test
 EXTRA_CFLAGS           = -fdata-sections -ffunction-sections
 
 # The extra linker options, e.g. "-lmysqlclient -lz"
-EXTRA_LDFLAGS          = -lSDL2
+EXTRA_LDFLAGS          = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Specify the include dirs, e.g. "-I/usr/include/mysql -I./include -I/usr/include -I/usr/local/include".
 INCLUDE                = 
