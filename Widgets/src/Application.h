@@ -1,5 +1,6 @@
 #pragma once
-#include <SDL.h>
+
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include "Renderer.h"
 #include "geom/Dimension.h"
@@ -27,4 +28,3 @@ public:
 		void render();
 		void on_mouse_press(SDL_MouseButtonEvent& button);
 };
-

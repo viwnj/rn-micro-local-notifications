@@ -4,14 +4,13 @@
 
 #include <iostream>
 class Container {
-private:
+protected:
 	std::vector<Container> children;
 public:
-	virtual void render() {};
-	virtual void update() {};
-	void append_child(Container container) {
-	
-	};
-	void remove_child() {};
-	void set_display_mode(std::string& display_mode) {};
+	Container();
+	virtual void render();
+	virtual void update();
+	void append_child(Container container);
+	void remove_child();
+	void set_display_mode(std::string& display_mode);
 };

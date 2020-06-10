@@ -1,8 +1,6 @@
 #pragma once
+
 struct Dimension {
 	int width, height;
-	Dimension(int w, int h) {
-		width = w;
-		height = h;
-	}
+	Dimension(int w, int h);
 };

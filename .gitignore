@@ -1,2 +1,5 @@
 /bin/
 /.vs/
+**/*.o
+**/*.d
+zzz_pear_test
