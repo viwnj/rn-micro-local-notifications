@@ -37,9 +37,15 @@ int Application::init() {
 	return 0;
 }
 
+void f() {
+	std::cout << "Oi" << std::endl;
+}
+
 void Application::render() {
+	Position pos(0, 0);
+	Dimension dim(200, 40);
 	SDL_RenderClear(Renderer::get_sdl_impl());
-	Button(Position(0,0), Dimension(200, 40)).render();
+	Button(pos, dim, f).render();
 	SDL_SetRenderDrawColor(Renderer::get_sdl_impl(), 33, 33, 33, 0);
 
 	SDL_RenderPresent(Renderer::get_sdl_impl());

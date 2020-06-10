@@ -1,5 +1,6 @@
-#pragma once
-#include <SDL.h>
+#ifndef TRPG_RENDERER
+#define TRPG_RENDERER
+#include <SDL2/SDL.h>
 
 class Renderer {
 
@@ -26,3 +27,5 @@ public:
 		}
 	}
 };
+
+#endif
