@@ -7,7 +7,7 @@ Button::Button(Position&& pos, Dimension&& dim, function_ptr f) {
 		dim.width,
 		dim.height
 	};
-	this->on_click = on_click;
+	this->_onclick= f;
 }
 
 Button::Button(Position&& pos, Dimension&& dim) {
@@ -27,7 +27,7 @@ Button::Button(Position& pos, Dimension& dim, function_ptr f) {
 		dim.width,
 		dim.height
 	};
-	this->on_click = on_click;
+	this->_onclick = f;
 }
 
 Button::Button(Position& pos, Dimension& dim) {
@@ -39,9 +39,20 @@ Button::Button(Position& pos, Dimension& dim) {
 	};
 }
 
-void Button::update() {}
 
 void Button::render() {
 	SDL_SetRenderDrawColor(Renderer::get_sdl_impl(), 255, 33, 33, 0);
 	SDL_RenderFillRect(Renderer::get_sdl_impl(), &rect);
+}
+
+void Button::update() {}
+
+void Button::onclick() {
+	if (_onclick) {
+		_onclick();
+	}
+}
+
+SDL_Rect Button::get_rect() {
+	return rect;
 }

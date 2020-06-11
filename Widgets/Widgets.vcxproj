@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\geom\Dimension.cpp" />
     <ClCompile Include="src\geom\Position.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Collision.h" />
     <ClInclude Include="src\geom\Dimension.h" />
     <ClInclude Include="src\geom\Position.h" />
     <ClInclude Include="src\Renderer.h" />

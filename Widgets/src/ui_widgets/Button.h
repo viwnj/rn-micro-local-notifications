@@ -8,19 +8,23 @@
 typedef void(*function_ptr)();
 class Button : public Container {
 private:
-	SDL_Rect rect;
-	function_ptr on_click;
+	SDL_Rect rect = {0, 0, 0, 0};
+	function_ptr _onclick;
 public:
-
-	Button(Position&& pos, Dimension&& dim, function_ptr on_click);
+	bool is_interactive = true;
+	Button(Position&& pos, Dimension&& dim, function_ptr onclick);
 
 	Button(Position&& pos, Dimension&& dim);
 
-	Button(Position& pos, Dimension& dim, function_ptr on_click);
+	Button(Position& pos, Dimension& dim, function_ptr onclick);
 
 	Button(Position& pos, Dimension& dim);
 
 	void update() override;
 
 	void render() override;
+
+	void onclick() override;
+
+	SDL_Rect get_rect() override;
 };
