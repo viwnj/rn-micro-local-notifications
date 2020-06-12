@@ -2,10 +2,6 @@
 
 Container::Container() {}
 
-void Container::render() {}
-
-void Container::update() {}
-
 void Container::append_child(Container container) {}
 
 void Container::remove_child() {}
