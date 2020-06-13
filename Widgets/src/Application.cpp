@@ -10,7 +10,6 @@ Application::~Application() {
 	SDL_Quit();
 }
 
-
 float Application::get_delta_time() {
 	float deltaTime = (SDL_GetTicks() - ticks_last_frame) / 1000.0f;
 
@@ -23,45 +22,29 @@ float Application::get_delta_time() {
 	return deltaTime;
 }
 
+template <typename T, typename ...TArgs>
+void Application::add_widget(TArgs ...args) {
+	T* widget = new T(std::forward<TArgs>(args)...);
 
-
-void f() {
-	std::cout << "Oi" << std::endl;
+	if (widget->is_interactive) {
+		clickable_elements.emplace_back(widget);
+	}
 }
 
-int Application::init() {
-
+bool Application::init() {
 	SDL_Init(SDL_INIT_EVERYTHING); // Initialize SDL2
 	window = SDL_CreateWindow("Widgets", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
 	Renderer::get_instance().init(window);
 
 	if (window == NULL) {
 		printf("Could not create window: %s\n", SDL_GetError());
-		return 1;
+		return false;
 	}
 
-	add_widget<Button>(Position(0, 0), Dimension(200, 40), []() { std::cout << "Clicked button 1\n";  });
-	add_widget<Button>(Position(0, 50), Dimension(200, 40), []() { std::cout << "Clicked button 2\n"; });
+	this->add_widget<Button>(Position(0, 0), Dimension(200, 40), []() { std::cout << "Clicked button 1\n";  });
+	this->add_widget<Button>(Position(0, 50), Dimension(200, 40), []() { std::cout << "Clicked button 2\n"; });
 
-	return 0;
-}
-
-
-void Application::render() {
-
-	SDL_RenderClear(Renderer::get_sdl_impl());
-	for (auto& element : clickable_elements) {
-		if (element == NULL || !element || element == nullptr) {
-			std::cout << "Element is null\n";
-		}
-		else {
-			element->render();
-
-		}
-	}
-	SDL_SetRenderDrawColor(Renderer::get_sdl_impl(), 33, 33, 33, 0);
-
-	SDL_RenderPresent(Renderer::get_sdl_impl());
+	return true;
 }
 
 void Application::on_mouse_press(SDL_MouseButtonEvent& mouse_event) {
@@ -101,10 +84,22 @@ void Application::process_input() {
 	}
 }
 
-void Application::update(float deltaTime) {
+void Application::render() {
 
+	SDL_RenderClear(Renderer::get_sdl_impl());
+	for (auto& element : clickable_elements) {
+		if (element == NULL || !element || element == nullptr) {
+			std::cout << "Element is null\n";
+		}
+		else {
+			element->render();
+
+		}
+	}
+	SDL_SetRenderDrawColor(Renderer::get_sdl_impl(), 33, 33, 33, 0);
+
+	SDL_RenderPresent(Renderer::get_sdl_impl());
 }
-
 
 void Application::run() {
 
@@ -117,3 +112,6 @@ void Application::run() {
 	}
 }
 
+void Application::update(float deltaTime) {
+
+}
