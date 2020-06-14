@@ -2,4 +2,6 @@
 /.vs/
 **/*.o
 **/*.d
+.idea
+cmake-build-debug
 zzz_pear_test

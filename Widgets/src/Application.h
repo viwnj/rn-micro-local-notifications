@@ -10,8 +10,7 @@
 #include "ui_widgets/Container.h"
 #include "Collision.h"
 
-class Application
-{
+class Application {
 private:
 	/**
 	 * @private constant attribute
@@ -28,7 +27,7 @@ private:
 	 * Should not exist in a near future.
 	 */
 	const unsigned int FRAME_TARGET_TIME = 1000 / FPS;
-	
+
 	/**
 	 * @private attribute
 	 *
@@ -143,8 +142,8 @@ public:
 	 * @tparam TArgs arguments of any type to be used as element constructor arguments.
 	 * @param[TArgs] args element constructor arguments.
 	 */
-	template <typename T, typename... TArgs>
-	void add_widget(TArgs... args);
+	template<typename T, typename... TArgs>
+	T* add_widget(TArgs... args);
 
 	/**
 	 * @public method

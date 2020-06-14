@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 #include "../Renderer.h"
 #include "../geom/Dimension.h"
 #include "../geom/Position.h"
@@ -9,7 +10,7 @@ typedef void(*function_ptr)();
 class Button : public Container {
 private:
 	SDL_Rect rect = {0, 0, 0, 0};
-	function_ptr _onclick;
+	function_ptr _onclick = NULL;
 public:
 	bool is_interactive = true;
 	Button(Position&& pos, Dimension&& dim, function_ptr onclick);

@@ -1,7 +1,8 @@
 #include "Application.h"
 #include "ui_widgets/Button.h"
+#include "ui_widgets/Text.h"
 
-Application::Application(): should_quit(false), ticks_last_frame(0) {
+Application::Application() : should_quit(false), ticks_last_frame(0) {
 	this->init();
 }
 
@@ -22,13 +23,15 @@ float Application::get_delta_time() {
 	return deltaTime;
 }
 
-template <typename T, typename ...TArgs>
-void Application::add_widget(TArgs ...args) {
-	T* widget = new T(std::forward<TArgs>(args)...);
+template<typename T, typename ...TArgs>
+T* Application::add_widget(TArgs ...args) {
+	T *widget = new T(std::forward<TArgs>(args)...);
 
 	if (widget->is_interactive) {
 		clickable_elements.emplace_back(widget);
 	}
+
+	return widget;
 }
 
 bool Application::init() {
@@ -41,23 +44,29 @@ bool Application::init() {
 		return false;
 	}
 
-	this->add_widget<Button>(Position(0, 0), Dimension(200, 40), []() { std::cout << "Clicked button 1\n";  });
-	this->add_widget<Button>(Position(0, 50), Dimension(200, 40), []() { std::cout << "Clicked button 2\n"; });
+	Button* a = this->add_widget<Button>(Position(230, 75), Dimension(200, 40), []() { std::cout << "Clicked button 1\n"; });
+	Button* b = this->add_widget<Button>(Position(457, 349), Dimension(200, 40), []() { std::cout << "Clicked button 2\n"; });
+	Text* t1 = new Text("Hai", Position(0, 0), 0xcc9222FF);
+	Text* t2 = new Text("Hui", Position(0, 0), 0x3377AAFF);
+	t1->setParent(a);
+	t2->setParent(b);
+	a->append_child(t1);
+	b->append_child(t2);
 
 	return true;
 }
 
-void Application::on_mouse_press(SDL_MouseButtonEvent& mouse_event) {
+void Application::on_mouse_press(SDL_MouseButtonEvent &mouse_event) {
 	if (mouse_event.button == SDL_BUTTON_LEFT) {
-		SDL_Rect mouse_rect{
+		SDL_Rect mouse_rect {
 			mouse_event.x,
 			mouse_event.y,
 			20,
 			20,
 		};
-	
+
 		//  loop through clickable elements and see which one the mouse is currently colliding with
-		for (auto& element : clickable_elements) {
+		for (auto &element : clickable_elements) {
 			if (Collision::CheckRectCollision(element->get_rect(), mouse_rect)) {
 				element->onclick();
 			}
@@ -70,7 +79,7 @@ void Application::process_input() {
 		switch (event.type) {
 			case SDL_QUIT:
 				should_quit = true;
-			break;
+				break;
 			case SDL_MOUSEBUTTONDOWN:
 				on_mouse_press(event.button);
 				break;
@@ -87,11 +96,10 @@ void Application::process_input() {
 void Application::render() {
 
 	SDL_RenderClear(Renderer::get_sdl_impl());
-	for (auto& element : clickable_elements) {
+	for (auto &element : clickable_elements) {
 		if (element == NULL || !element || element == nullptr) {
 			std::cout << "Element is null\n";
-		}
-		else {
+		} else {
 			element->render();
 
 		}
@@ -103,7 +111,7 @@ void Application::render() {
 
 void Application::run() {
 
-	while (!should_quit)	{
+	while (!should_quit) {
 		while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticks_last_frame + FRAME_TARGET_TIME));
 		float deltaTime = this->get_delta_time();
 		Application::render();
