@@ -4,15 +4,26 @@
 #include <stdio.h>
 #include <vector>
 #include <memory>
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include "Renderer.h"
 #include "geom/Dimension.h"
 #include "geom/Position.h"
 #include "ui_widgets/Container.h"
 #include "Collision.h"
+#include "Shader.h"
+
+const GLfloat g_vertex_buffer_data[] = {
+	-1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom left
+	1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // bottom right
+	0.0f,  1.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top
+};
 
 class Application
 {
 private:
+	GLuint vertexbuffer;
 	/**
 	 * @private constant attribute
 	 *
@@ -36,6 +47,8 @@ private:
 	 * Elements here are rendered and checked for click events.
 	 */
 	std::vector<Container *> clickable_elements;
+
+	SDL_GLContext context;
 
 	/**
 	 * @private attribute
@@ -89,6 +102,14 @@ private:
 	 */
 	bool init();
 
+	bool initGL();
+
+	GLuint gProgramID = 0;
+	Shader* gShader;
+	GLint gVertexPos2DLocation = -1;
+	GLuint gVBO = 0;
+	GLuint gIBO = 0;
+
 	/**
 	 * @private method
 	 *
@@ -117,7 +138,7 @@ private:
 	 *
 	 * No description.
 	 */
-	void update(float deltaTime);
+	void update();
 
 public:
 	/**

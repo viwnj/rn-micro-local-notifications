@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
-#include "../Renderer.h"
+#include "GL/glew.h"
 #include "../geom/Dimension.h"
 #include "../geom/Position.h"
 #include "./Container.h"
@@ -8,16 +8,21 @@
 typedef void(*function_ptr)();
 class Button : public Container {
 private:
-	SDL_Rect rect = {0, 0, 0, 0};
+	SDL_Rect* rect;
+	Position pos;
+	Dimension dim;
 	function_ptr _onclick;
+	GLfloat* vertex_buffer_data;
+	GLuint vertex_buffer;
+
+	void createBuffer();
 public:
 	bool is_interactive = true;
-	Button(Position&& pos, Dimension&& dim, function_ptr onclick);
 
+	Button(Position&& pos, Dimension&& dim, function_ptr onclick);
 	Button(Position&& pos, Dimension&& dim);
 
 	Button(Position& pos, Dimension& dim, function_ptr onclick);
-
 	Button(Position& pos, Dimension& dim);
 
 	void update() override;

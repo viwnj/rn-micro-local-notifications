@@ -1,5 +1,6 @@
 #include "Collision.h"
 #include <iostream>
+
 bool Collision::CheckRectCollision(const SDL_Rect& rectA, const SDL_Rect& rectB) {
 	return (
 		rectA.x + rectA.w >= rectB.x &&
